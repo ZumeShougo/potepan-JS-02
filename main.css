@@ -1,0 +1,32 @@
+.calculator {
+  max-width: 800px;
+  margin: 0 auto;
+  padding-top: 250px;
+}
+.result {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0 0.5em;
+  height: 50px;
+  background: #000;
+  color: #fff;
+  font-size: 2rem;
+}
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 50px;
+  gap: 2px;
+  margin-top: 2px;
+}
+.wrapper button {
+  border-radius: 10px;
+  border-style: solid;
+  border-color: #7d7d7d;
+  font-size: 2rem;
+}
+.clear, .equals {
+  grid-column: span 2;
+}
+

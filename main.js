@@ -3,6 +3,7 @@ $(document).ready(function () {
 
   $(".wrapper button").on("click", function () {
     const buttonValue = $(this).data("value");
+    const lastChar = currentInput.slice(-1); // 入力済みの最後の文字
 
     /*----- `AC` ボタンが押されたとき（リセット）------*/
     if (buttonValue === "AC") {
@@ -25,7 +26,23 @@ $(document).ready(function () {
       return;
     }
     /*---------------------------------------------------- */
+    //先頭に 0 が付いてしまうのを防ぐ
+    if (buttonValue.toString().match(/[0-9]/) && currentInput === "0") {
+      currentInput = buttonValue.toString(); // 数値を文字列に変換して保存
+      $("#result").text(currentInput);
+      return;
+    }
 
+    //演算子が連続しないようにする
+    if (["+", "-", "*", "/"].includes(buttonValue) && ["+", "-", "*", "/"].includes(lastChar)) {
+      return; // 直前が演算子なら、新しい演算子を無視
+    }
+
+    //小数点 `.` を連続で入力できないようにする
+    if (buttonValue === ".") {
+      let lastNumber = currentInput.split(/[\+\-\*\/]/).pop(); // 最後の数値を取得
+      if (lastNumber.includes(".")) return; // すでに `.` があるなら無視
+    }
     /* ------------ボタンを押したら表示部に加えていく------*/
     currentInput += buttonValue;
     $("#result").text(currentInput);
